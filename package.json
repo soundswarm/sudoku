@@ -1,0 +1,35 @@
+{
+  "name": "sudoku",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "bootstrap-sass": "^3.3.5"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "grunt": "~0.4.4",
+    "grunt-babel": "^5.0.3",
+    "grunt-browserify": "^4.0.1",
+    "grunt-contrib-concat": "latest",
+    "grunt-contrib-cssmin": "latest",
+    "grunt-eslint": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-sass": "latest",
+    "jshint-stylish": "latest"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soundswarm/sudoku.git"
+  },
+  "author": "sean",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/soundswarm/sudoku/issues"
+  },
+  "homepage": "https://github.com/soundswarm/sudoku"
+}
