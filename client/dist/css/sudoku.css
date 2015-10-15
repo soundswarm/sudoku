@@ -1,0 +1,36 @@
+/*hide spin box in input*/
+input[type='number'] {
+  -moz-appearance: textfield; }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none; }
+
+.cell {
+  height: 30px;
+  width: 30px;
+  text-align: center;
+  font-size: 20px;
+  border: 0; }
+
+.board {
+  margin: auto;
+  border-collapse: collapse; }
+
+tr:first-child {
+  border-top: solid; }
+
+tr:nth-child(3n) td {
+  border-bottom: solid; }
+
+td {
+  border: 1px solid;
+  text-align: center; }
+
+td:first-child {
+  border-left: solid; }
+
+td:nth-child(3n) {
+  border-right: solid; }
+
+/*# sourceMappingURL=sudoku.css.map */

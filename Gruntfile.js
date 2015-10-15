@@ -45,8 +45,10 @@ module.exports = function(grunt) {
       }
     },
     sass: {
-      files: {
-        'client/dist/css/<%= pkg.name %>.css': 'client/src/scss/style.scss'
+      dist: {
+        files: {
+          'client/dist/css/<%= pkg.name %>.css': 'client/src/sass/style.scss'
+        }  
       }
     },
     cssmin: {
@@ -55,13 +57,26 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'client/dist/css/<%= pkg.name %>.min.css': 'client/src/css/<%= pkg.name %>.css'
+          'client/dist/css/<%= pkg.name %>.min.css': 'client/dist/css/<%= pkg.name %>.css'
         }
       }
     },
 
     watch: {
+      sasswatch: {
+        files: 'client/src/**/*.scss',
+        tasks: [ 
+          'sass',
+          'cssmin'
+        ],
+        options: {
+          livereload: true
+        }
+      },
       scripts: {
+        options: {
+          livereload: true
+        },
         files: [
           'client/src/**/*.es6'
         ],
@@ -70,23 +85,15 @@ module.exports = function(grunt) {
           'browserify',
           'uglify'
         ]
-      },
-      sass: {
-        files: 'client/src/**/*.scss',
-        tasks: ['sass']
-      },
-      cssmin: {
-        files: 'client/dist/**/*.css',
-        tasks: ['cssmin']
       }
-    },
-
+      
+    }
   });
   
+  grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-eslint');
-  grunt.loadNpmTasks('grunt-sass');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-browserify');
