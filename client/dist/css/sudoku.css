@@ -6,16 +6,16 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none; }
 
+.board {
+  margin: auto;
+  border-collapse: collapse; }
+
 .cell {
   height: 30px;
   width: 30px;
   text-align: center;
   font-size: 20px;
   border: 0; }
-
-.board {
-  margin: auto;
-  border-collapse: collapse; }
 
 tr:first-child {
   border-top: solid; }
