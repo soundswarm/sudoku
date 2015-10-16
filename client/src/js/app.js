@@ -5,20 +5,33 @@ $(document).ready(function () {
 
   var Board = function Board() {
     this.n = 9;
-    this.numOfNumbers = 0;
     this.legalBoard = true;
     this.boardArray = [];
-    this.currentCell = [];
+    this.currentCell = []; //maybe delete this
 
     this.populateBoard = function () {
-      for (var row = 0; row < this.n; row++) {
-        this.boardArray[row] = [];
-        for (var col = 0; col < this.n; col++) {
-          this.boardArray[row][col] = '';
-        }
-      }
+      this.boardArray = [[5, 3, '', '', 7, '', '', '', ''], [6, '', '', 1, 9, 5, '', '', ''], ['', 9, 8, '', '', '', '', 6, ''], [8, '', '', '', 6, '', '', '', 3], [4, '', '', 8, '', 3, '', '', 1], [7, '', '', '', 2, '', '', '', 6], ['', 6, '', '', '', '', 2, 8, ''], ['', '', '', 4, 1, 9, '', '', 5], ['', '', '', '', 8, '', '', 7, 9]];
+      // for(let row = 0; row < this.n; row++) {
+      //   this.boardArray[row] = [];
+      //   for(let col = 0; col < this.n; col++) {
+      //     this.boardArray[row][col] = '';
+      //   }
+      // }
     };
     this.populateBoard();
+  };
+  Board.prototype.buildBoardGrid = function () {
+    var n = 9;
+
+    for (var r = 0; r < n; r++) {
+      var row = '<tr class="row"></tr>';
+
+      for (var c = 0; c < n; c++) {
+        row += '<td><input value = ' + this.boardArray[r][c] + ' data-row=' + r + ' data-col=' + c + ' class="cell" type="number" min="1" max="9"></td>';
+      };
+      row += '</tr>';
+      $('.board').append(row);
+    };
   };
   Board.prototype.checkBoard = function () {
     // var row = this.currentCell[0];
@@ -81,7 +94,7 @@ $(document).ready(function () {
         for (var col = 0; col < this.n; col += 3) {
           var boxArray = [];
           for (var row = rowStart; row < rowStart + 3; row++) {
-            boxArray.push(board.boardArray[row].slice(col, col + 3));
+            boxArray.push(this.boardArray[row].slice(col, col + 3));
           }
           var boxArray = boxArray.reduce(function (mem, next) {
             return mem.concat(next);
@@ -95,8 +108,24 @@ $(document).ready(function () {
       }
       console.log('box', boxArray);
     };
+    var countNumbers = function countNumbers() {
+      var numOfNumbers = 0;
+      var flattenedBoard = board.boardArray.reduce(function (mem, next) {
+        return mem.concat(next);
+      });
+      flattenedBoard.forEach(function (num) {
+        if (num >= 1 && num <= 9) {
+          numOfNumbers++;
+        }
+      }, this);
+      return numOfNumbers;
+    };
     if (checkColumns.call(this) && checkRows.call(this) && checkBoxes.call(this)) {
       this.legalBoard = true;
+      console.log(countNumbers.call(this));
+      if (countNumbers.call(this) === this.n * this.n) {
+        console.log('game won');
+      }
     } else {
       this.legalBoard = false;
     }
@@ -115,21 +144,7 @@ $(document).ready(function () {
   };
   var board = new Board();
 
-  var buildBoardGrid = function buildBoardGrid() {
-    var n = 9;
-
-    for (var r = 0; r < n; r++) {
-      var row = '<tr class="row"></tr>';
-
-      for (var c = 0; c < n; c++) {
-        row += '<td><input data-row=' + r + ' data-col=' + c + ' class="cell" type="number" min="1" max="9"></td>';
-      };
-      row += '</tr>';
-      $('.board').append(row);
-    };
-  };
-
-  buildBoardGrid();
+  board.buildBoardGrid();
 
   $('.cell').on('input', function (event) {
     // debugger;
