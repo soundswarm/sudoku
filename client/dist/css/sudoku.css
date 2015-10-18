@@ -6,15 +6,24 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none; }
 
-.board {
+.new-game {
+  margin: auto; }
+
+#board {
   margin: auto;
-  border-collapse: collapse; }
+  border-collapse: collapse;
+  max-width: 580px;
+  /*max-width: 90%;*/ }
+
+.btn {
+  margin: 20px; }
 
 .cell {
-  height: 30px;
+  height: 20px;
   width: 30px;
   text-align: center;
-  font-size: 20px;
+  font-weight: bold;
+  font-size: 15px !important;
   border: 0; }
 
 tr:first-child {
@@ -32,5 +41,14 @@ td:first-child {
 
 td:nth-child(3n) {
   border-right: solid; }
+
+@media (min-width: 480px) {
+  .cell {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    border: 0; } }
 
 /*# sourceMappingURL=sudoku.css.map */

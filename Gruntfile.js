@@ -57,7 +57,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'client/dist/css/<%= pkg.name %>.min.css': 'client/dist/css/<%= pkg.name %>.css'
+          'client/dist/css/<%= pkg.name %>.min.css': ['client/dist/css/<%= pkg.name %>.css', './node_modules/bootstrap/dist/css/bootstrap.min.css']
         }
       }
     },

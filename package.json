@@ -16,11 +16,12 @@
     "grunt-browserify": "^4.0.1",
     "grunt-contrib-concat": "latest",
     "grunt-contrib-cssmin": "latest",
-    "grunt-eslint": "latest",
+    "grunt-contrib-sass": "latest",
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
-    "grunt-contrib-sass": "latest",
-    "jshint-stylish": "latest"
+    "grunt-eslint": "latest",
+    "jshint-stylish": "latest",
+    "zombie": "^4.1.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,52 +1,42 @@
 var $ = require('jquery');
 $(document).ready(function() {
-
+ // Board class
   var Board = function() {
     this.n = 9;
     this.legalBoard = true;
     this.boardArray = [];
-    this.currentCell = []; //maybe delete this
 
     this.populateBoard = function() {
       this.boardArray = [
-        [5,3,'','',7,'','','',''],
-        [6,'','',1,9,5,'','',''],
-        ['',9,8,'','','','',6,''],
-        [8,'','','',6,'','','',3],
-        [4,'','',8,'',3,'','',1],
-        [7,'','','',2,'','','',6],
-        ['',6,'','','','',2,8,''],
-        ['','','',4,1,9,'','',5],
-        ['','','','',8,'','',7,9]
+        [5,3,"","",7,"","","",""],
+        [6,"","",1,9,5,"","",""],
+        ["",9,8,"","","","",6,""],
+        [8,"","","",6,"","","",3],
+        [4,"","",8,"",3,"","",1],
+        [7,"","","",2,"","","",6],
+        ["",6,"","","","",2,8,""],
+        ["","","",4,1,9,"","",5],
+        ["","","","",8,"","",7,9]
       ];
-      // for(let row = 0; row < this.n; row++) {
-      //   this.boardArray[row] = [];
-      //   for(let col = 0; col < this.n; col++) {
-      //     this.boardArray[row][col] = '';
-      //   }
-      // }
     };
     this.populateBoard();
-
   };
   Board.prototype.buildBoardGrid  = function() {
      const n = 9;
     
     for(let r = 0; r < n; r++) {
-      var row = '<tr class="row"></tr>';
+      var row = '<tr class="row">';
       
       for(let c = 0; c < n; c++) {
-        row += '<td><input value = ' + this.boardArray[r][c]+ ' data-row='+r+' data-col='+c+ ' class="cell" type="number" min="1" max="9"></td>';
+        var value = this.boardArray[r][c]>0? this.boardArray[r][c] : "p"
+        row += '<td><input value = ' + value + ' data-row='+r+' data-col='+c+ ' class="cell" type="number" min="1" max="9"></td>';
       }; 
       row += '</tr>';
-      $('.board').append(row);
+      $('#board').append(row);
     }; 
   };
   Board.prototype.checkBoard = function() {
-    // var row = this.currentCell[0];
-    // var col = this.currentCell[1];
     var checkArray = function(array) {
-      
       var store = {};
       for(let i = 0; i < array.length; i++) {
         let cell = array[i];
@@ -106,7 +96,7 @@ $(document).ready(function() {
     };
     var countNumbers = function() {
       var numOfNumbers = 0;
-      var flattenedBoard = board.boardArray.reduce(function(mem,next) {
+      var flattenedBoard = this.boardArray.reduce(function(mem,next) {
         return mem.concat(next);
       });
       flattenedBoard.forEach(function(num) {
@@ -120,56 +110,51 @@ $(document).ready(function() {
       this.legalBoard = true;
       console.log(countNumbers.call(this));
       if(countNumbers.call(this) === (this.n * this.n)) {
-        console.log('game won');
+        console.log('you win');
+        $('.win').show();
       }
     } else {
       this.legalBoard =false;
     }
+  };
 
 
-    // for each cell
-    //   if ! 1<= cell <= 9
-    //     legalBoard = false;
+  // executes a new game
+  var newGame = function() {
+    $('.win').hide();
+    var board = new Board();
+    board.buildBoardGrid();
 
-    //   if obj[cell]
-    //     obj[cell] ++
-    //   else obj[cell] = 1
+    // listen for user
+    $('.cell').on('input',function(event) {
+      // debugger;
+      event.preventDefault();
+      var inputNum = $(this).val();
+      var row = parseInt( $(this).data().row) ;
+      var col = parseInt( $(this).data().col );
+      board.boardArray[row][col] = inputNum;
 
-    // for cell in obj
-    //   if obj[cell] != 1
-    //     legalBoard = false
-  }
-  var board = new Board();
+      // check if player has won
+      board.checkBoard();
+      console.log(board.legalBoard);
+    });
+  };
 
-  
+  // initial new game
+  $('.win').hide();
+  newGame();
 
-  board.buildBoardGrid();
+  // listen for user to start a new game
+  $(".new-game").on('click', function() {
 
-  $('.cell').on('input',function(event) {
-    // debugger;
-    event.preventDefault();
-    var inputNum = $(this).val();
-    var row = parseInt( $(this).data().row) ;
-    var col = parseInt( $(this).data().col );
-    board.currentCell = [row, col];
-    board.boardArray[row][col] = inputNum;
-    board.checkBoard();
-    console.log(board.legalBoard);
-  })
-   
-  // on input
-  //   check input
-  //     if 3 criteria are true
-  //       let input
-            // add 1 to pieces on baord
-  //     else
-  //        set legal board to false
-            // add 1 to pieces on board
-    
-    // function isWinner
-    //   if legalBoard = true && pieces on board = 81
-    //     display you won!
+    // hide you win message
+    $('.win').hide();
 
+    // remove the old board
+    $('#board').empty();
 
+    // start a new game
+    newGame();
+  });
 
 });

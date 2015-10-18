@@ -13,10 +13,16 @@
     </head>
 
     <body>
-        <table class="board">
-        </table>
+        <div class="container">
+            <table id="board" >
+            </table>
+        </div>
         <!-- grunt live reload.  remove for deployment -->
         <script src="//localhost:35729/livereload.js"></script>
+        <div class="text-center">
+            <button class=" btn new-game">New Game</button>
+        </div>
+        <h2 class="win"> You Win!</h2>
     </body>
     <script src="dist/js/sudoku.js"></script>
 </html>
