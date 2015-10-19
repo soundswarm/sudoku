@@ -4,9 +4,6 @@
   "description": "",
   "main": "Gruntfile.js",
   "dependencies": {
-    "bootstrap": "^3.3.5",
-    "bootstrap-sass": "^3.3.5",
-    "grunt-sass": "^1.1.0-beta",
     "jquery": "^2.1.4"
   },
   "devDependencies": {
@@ -20,7 +17,6 @@
     "grunt-contrib-uglify": "latest",
     "grunt-contrib-watch": "latest",
     "grunt-eslint": "latest",
-    "jshint-stylish": "latest",
     "zombie": "^4.1.0"
   },
   "scripts": {

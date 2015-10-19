@@ -6,26 +6,21 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
     -webkit-appearance: none;
 }
-.new-game {
-  margin: auto;
+.win {
+  text-align: center;
 }
 #board {
   margin: auto;
   border-collapse: collapse;
-  max-width: 580px;
-  /*max-width: 90%;*/
+}
 
-}
-.btn {
-  margin: 20px;
-}
-.cell {
-  height: 20px;
-  width: 30px;
-  text-align: center;
-  font-weight: bold;
-  font-size: 15px !important;
-  border: 0;
+.new-game {
+  margin-top: 70px;
+  margin-left: -50px;
+  width: 100px;
+  height: 30px;
+  position: relative;
+  left: 50%;
 }
 
 tr:first-child {
@@ -45,13 +40,35 @@ td:nth-child(3n) {
   border-right:solid ;
 }
 
-@media (min-width: 480px) {
+/*the cell size defines the board size*/
+@mixin cell($width, $height, $fontSize) {
+  width: $width;
+  height: $height;
+  font-size: $fontSize;
+  text-align: center;
+  font-weight: bold;
+  border: 0;
+
+}
+
+.cell {
+  @include cell(10px,20px,20px);
+}
+
+@media (max-width: 320px) {
   .cell {
-    height: 40px;
-    width: 40px;
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-    border: 0;
+    @include cell(10px,20px,18px);
+  }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 767px) {
+  .cell {
+    @include cell(20px,20px,20px);
+  }
+}
+
+@media (min-width: 768px) {
+  .cell {
+    @include cell(40px,40px,30px);
   }
 }

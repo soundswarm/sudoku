@@ -9,20 +9,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sudoku</title>
         <link href="dist/css/sudoku.min.css" rel="stylesheet">
-     <!--    <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"> -->
+        <script src="dist/js/sudoku.js"></script>
     </head>
 
     <body>
-        <div class="container">
-            <table id="board" >
-            </table>
-        </div>
+        <table id="board" >
+        </table>
         <!-- grunt live reload.  remove for deployment -->
         <script src="//localhost:35729/livereload.js"></script>
-        <div class="text-center">
-            <button class=" btn new-game">New Game</button>
-        </div>
         <h2 class="win"> You Win!</h2>
+        <button class="new-game">New Game</button>
     </body>
-    <script src="dist/js/sudoku.js"></script>
+    
 </html>

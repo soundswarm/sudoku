@@ -8,14 +8,6 @@ module.exports = function(grunt) {
         'client/src/**/*.es6',
       ]
     },
-    // mochaTest: {
-    //   test: {
-    //     options: {
-    //       reporter: 'spec'
-    //     },
-    //     src: ['test/**/*.js']
-    //   }
-    // },
     babel: {
       es6: {
         files: [
@@ -57,7 +49,7 @@ module.exports = function(grunt) {
       },
       dist: {
         files: {
-          'client/dist/css/<%= pkg.name %>.min.css': ['client/dist/css/<%= pkg.name %>.css', './node_modules/bootstrap/dist/css/bootstrap.min.css']
+          'client/dist/css/<%= pkg.name %>.min.css': ['client/dist/css/<%= pkg.name %>.css']
         }
       }
     },

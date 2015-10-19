@@ -1,12 +1,48 @@
 var $ = require('jquery');
-$(document).ready(function() {
- // Board class
-  var Board = function() {
+
+// executes a new game
+var newGame = () => {
+  $('.win').hide();
+  var board = new Board();
+  board.buildBoardGrid();
+
+  // listen for user
+  $('.cell').on('input', function(event) {
+    // debugger;
+    event.preventDefault();
+    var inputNum = $(this).val();
+    var row = parseInt( $(this).data().row) ;
+    var col = parseInt( $(this).data().col );
+    board.boardArray[row][col] = inputNum;
+
+    // check if player has won
+    board.checkBoard();
+    console.log(board.legalBoard);
+  });
+
+   // listen for user to start a new game
+  $(".new-game").on('click', function(event) {
+    event.preventDefault();
+    // hide you win message
+    $('.win').hide();
+
+    // remove the old board
+    $('#board').empty();
+
+    // start a new game
+    newGame();
+  });
+};
+
+// Board class
+class Board {
+  constructor() {
     this.n = 9;
     this.legalBoard = true;
     this.boardArray = [];
 
-    this.populateBoard = function() {
+    // this function could be modified to allow for
+    this.populateBoard = () => {
       this.boardArray = [
         [5,3,"","",7,"","","",""],
         [6,"","",1,9,5,"","",""],
@@ -20,9 +56,11 @@ $(document).ready(function() {
       ];
     };
     this.populateBoard();
-  };
-  Board.prototype.buildBoardGrid  = function() {
-     const n = 9;
+  }
+
+  // functions in class prototype
+  buildBoardGrid () {
+    const n = 9;
     
     for(let r = 0; r < n; r++) {
       var row = '<tr class="row">';
@@ -35,8 +73,10 @@ $(document).ready(function() {
       $('#board').append(row);
     }; 
   };
-  Board.prototype.checkBoard = function() {
-    var checkArray = function(array) {
+
+  // check any board to see if the board is a winning board. Functions work for any board.
+  checkBoard () {
+    var checkArray = (array) => {
       var store = {};
       for(let i = 0; i < array.length; i++) {
         let cell = array[i];
@@ -53,10 +93,10 @@ $(document).ready(function() {
       };
       return true;
     };
-    var checkColumns = function() {
+    var checkColumns = () => {
       // debugger;
       for(let col = 0; col < this.n; col++) {
-        var columnArray = this.boardArray.map(function(row) {
+        var columnArray = this.boardArray.map((row) => {
           return  row[col];
         });
         if(checkArray.call(this, columnArray) === false) {
@@ -65,7 +105,7 @@ $(document).ready(function() {
       }
       return true;
     };
-    var checkRows = function() {
+    var checkRows = () => {
       for(let row = 0; row < this.n; row++) {
         var rowArray = this.boardArray[row];
         if(checkArray.call(this, rowArray) === false) {
@@ -74,7 +114,7 @@ $(document).ready(function() {
       }
       return true;
     };
-    var checkBoxes = function() {
+    var checkBoxes = () => {
       // debugger;
       for(let rowStart = 0; rowStart < this.n; rowStart += 3) {
         for(let col = 0; col < this.n; col+=3) {
@@ -82,7 +122,7 @@ $(document).ready(function() {
           for(let row = rowStart; row < (rowStart + 3); row++) {
             boxArray.push( this.boardArray[row].slice(col,col+3) );
           }
-          var boxArray = boxArray.reduce(function(mem, next) {
+          var boxArray = boxArray.reduce((mem, next) => {
             return mem.concat(next)
           });
           
@@ -94,12 +134,12 @@ $(document).ready(function() {
       }
       console.log('box', boxArray);
     };
-    var countNumbers = function() {
+    var countNumbers = () => {
       var numOfNumbers = 0;
-      var flattenedBoard = this.boardArray.reduce(function(mem,next) {
+      var flattenedBoard = this.boardArray.reduce((mem,next) => {
         return mem.concat(next);
       });
-      flattenedBoard.forEach(function(num) {
+      flattenedBoard.forEach((num) => {
         if(num >=1 && num <=9) {
           numOfNumbers++;
         }
@@ -116,45 +156,10 @@ $(document).ready(function() {
     } else {
       this.legalBoard =false;
     }
-  };
+  };  
+};
 
-
-  // executes a new game
-  var newGame = function() {
-    $('.win').hide();
-    var board = new Board();
-    board.buildBoardGrid();
-
-    // listen for user
-    $('.cell').on('input',function(event) {
-      // debugger;
-      event.preventDefault();
-      var inputNum = $(this).val();
-      var row = parseInt( $(this).data().row) ;
-      var col = parseInt( $(this).data().col );
-      board.boardArray[row][col] = inputNum;
-
-      // check if player has won
-      board.checkBoard();
-      console.log(board.legalBoard);
-    });
-  };
-
+$(document).ready(() => {
   // initial new game
-  $('.win').hide();
   newGame();
-
-  // listen for user to start a new game
-  $(".new-game").on('click', function() {
-
-    // hide you win message
-    $('.win').hide();
-
-    // remove the old board
-    $('#board').empty();
-
-    // start a new game
-    newGame();
-  });
-
 });
